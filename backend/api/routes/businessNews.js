@@ -1,7 +1,6 @@
 const express = require("express");
 const request = require("request");
 const cheerio = require("cheerio");
-const fs = require("fs");
 
 const router = express.Router();
 
@@ -18,6 +17,7 @@ router.get("/", (req, res, next) => {
       var time = [];
       var date = [];
       var links = [];
+      var inlinks = [];
 
       const $ = cheerio.load(html);
 
@@ -60,6 +60,10 @@ router.get("/", (req, res, next) => {
         date[i] = $(this).text();
       });
 
+      $("a[class='clickable']").each(function (i, elem) {
+        inlinks[i] = $(this).attr("href");
+      });
+
       $("a[class='source']").each(function (i, elem) {
         links[i] = $(this).attr("href");
       });
@@ -71,12 +75,11 @@ router.get("/", (req, res, next) => {
           "image url": image[i],
           date: date[i],
           time: time[i],
-          //   "read more at": links[i],
+          inshortlink: "https://inshorts.com" + inlinks[i],
         });
       }
 
       inshortsData = { data: resultObj };
-
 
       res.status(200).json({
         language: "English",

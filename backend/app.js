@@ -3,11 +3,7 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 
-
 const app = express();
-
-
-
 
 //Use helmet to prevent common security vulnerabilities
 app.use(helmet());
@@ -36,7 +32,8 @@ app.use((req, res, next) => {
 app.use(cors());
 
 //Define routes
-app.use('/news/business',require('./api/routes/businessNews'))
+app.use("/news/business", require("./api/routes/businessNews"));
+app.use("/analyze", require("./api/routes/analyze"));
 
 //This function will give a 404 response if an undefined API endpoint is fired
 app.use((req, res, next) => {
