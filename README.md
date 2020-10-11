@@ -5,7 +5,7 @@
 
 ---
 
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/12931122/TVRkYSPq) [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://emostocks.vercel.app/)
+[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/12931122/TVRkYSPq) [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://emostocks.vercel.app/) [![DEMO ](https://img.shields.io/badge/Demo-Checkout-red?style=flat-square&logo=appveyor)](https://drive.google.com/file/d/1Mh_BbRr8N9V4rqosm_4RSLgKpHlPoOV6/view) [![PITCH ](https://img.shields.io/badge/Pitch-Checkout-purple?style=flat-square&logo=appveyor)](https://drive.google.com/file/d/13GFTXsG0wceBYOspYwsbwuUEVpZswrhs/view)
 
 ## Features
 
