@@ -1,35 +1,62 @@
 # EmoStock
 
 > <Subtitle>
-> Your one stop solution to profitable stocks :chart_with_upwards_trend:
+> Your one-stop solution to profitable stocks :chart_with_upwards_trend:
+
 ---
 
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/12931122/TVRkYSPq)
+[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/12931122/TVRkYSPq) [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://emostocks.vercel.app/)
 
 ## Features
 
 - Get latest business news
-- Relate news with stocks
-- Find the best stocks to invest in
+- Relate news with stocks and find the best stocks to invest in
+- Get all stocks that have been covered in recent headlines
+- Easily track stocks of varous companies; get notified when they are predicted to rise or fall
+- Analyze financial reports of companies
 
-## Instructions to run
+## Instructions to run the backend
 
 ```
-$ git clone https://github.com/PriyankVIT/EmoStock.git
-$ cd backend
+$ git clone https://github.com/RajatSablok/EmoStock.git
+$ cd EmoStock
 $ npm install
+```
+
+These variables should reside as key value pairs in a file called `.env`.
+
+|               Variable Name               |                Description                |          Get it from          |
+| :---------------------------------------: | :---------------------------------------: | :---------------------------: |
+|   NATURAL_LANGUAGE_UNDERSTANDING_APIKEY   |            IBM Watson API KEY             |    https://cloud.ibm.com/     |
+| NATURAL_LANGUAGE_UNDERSTANDING_IAM_APIKEY |          IBM Watson IAM API KEY           |    https://cloud.ibm.com/     |
+|    NATURAL_LANGUAGE_UNDERSTANDING_URL     |        IBM Watson NLU Service URL         |    https://cloud.ibm.com/     |
+| NATURAL_LANGUAGE_UNDERSTANDING_AUTH_TYPE  |         IBM Watson NLU Auth Type          |    https://cloud.ibm.com/     |
+|                NEWS_APIKEY                |              NEWSAPI API KEY              |  https://newsapi.org/account  |
+|                   DBURI                   |    URI for connecting to MongoDB Atlas    |  https://cloud.mongodb.com/   |
+|                JWT_SECRET                 |              JWT Secret Key               | You can generate your own key |
+|             SENDGRID_API_KEY              |             Sendgrid API KEY              |   https://app.sendgrid.com/   |
+|              SENDGRID_EMAIL               | Email for sending out mails from Sendgrid |   https://app.sendgrid.com/   |
+
+```
 $ npm start
-$ cd ..
-$ cd frontend
+```
+
+## Instructions to run the frontend
+
+```
+$ git clone https://github.com/TheG0dfath3r/emostocks.git
+$ cd emostocks
+# git checkout master
+$ npm install
 $ npm start
 ```
 
 ## Contributors
 
 - <a href="https://github.com/RajatSablok">Rajat Sablok</a>
-- <a href="https://github.com/PriyankVIT">Priyank Kaushik</a>
 - <a href="https://github.com/TheG0dfath3r">Kunal Singh</a>
 - <a href="https://github.com/anmolpant">Anmol Pant</a>
+- <a href="https://github.com/PriyankVIT">Priyank Kaushik</a>
 - <a href="https://github.com/syedayazsa">Syed Ayaz</a>
 
 ## License
