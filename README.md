@@ -45,7 +45,7 @@ $ npm start
 ```
 $ git clone https://github.com/TheG0dfath3r/emostocks.git
 $ cd emostocks
-# git checkout master
+$ git checkout master
 $ npm install
 $ npm start
 ```
@@ -61,3 +61,7 @@ $ npm start
 ## License
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+<p align="center">
+	With :heart: by LCF 2.0
+</p>
