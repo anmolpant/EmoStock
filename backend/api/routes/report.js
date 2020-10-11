@@ -32,6 +32,13 @@ router.post("/", async (req, res) => {
         errormsg: err.toString(),
       });
     }
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: "Please select file",
+      });
+    }
+
     //Define the filepath for reading file
     const filepath =
       path.dirname(__dirname).replace("\\api", "").replace("/api", "") +
@@ -52,7 +59,9 @@ router.post("/", async (req, res) => {
       naturalLanguageUnderstanding
         .analyze(analyzeParams)
         .then((analysisResults) => {
-          res.status(200).json(analysisResults, null, 2);
+          res
+            .status(200)
+            .json({ analysisResults: analysisResults.result.sentiment });
         })
         .catch((err) => {
           res.status(500).json({

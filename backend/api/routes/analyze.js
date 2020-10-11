@@ -4,6 +4,8 @@ const { IamAuthenticator } = require("ibm-watson/auth");
 
 require("dotenv").config();
 
+const companies = require("../../assets/companies.json");
+
 const router = express.Router();
 
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -16,41 +18,124 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
 
 //Analyze a news
 router.post("/", async (req, res) => {
-  const { url } = req.body;
+  const { title, news, imageURL, date, time, inshortslink } = req.body;
+  let companyArr = [];
+  let entitiesArr = [];
+
+  //Define parameters for analyzing news
   const analyzeParams = {
-    url,
+    url: inshortslink,
     features: {
       entities: {
-        limit: 5,
+        limit: 3,
         sentiment: true,
         relevance: true,
         count: true,
-        mentions: false,
-      },
-      keywords: {
-        sentiment: true,
-        emotion: true,
-        limit: 3,
       },
     },
   };
 
+  //Analyze news
   naturalLanguageUnderstanding
     .analyze(analyzeParams)
     .then((analysisResults) => {
       let entities = analysisResults.result.entities;
-      let keywords = analysisResults.result.keywords;
+
+      //Store entities of type company in entitiesArr
+      for (i in entities) {
+        if (entities[i].type == "Company") {
+          entitiesArr.push(entities[i]);
+        }
+      }
+
+      //Map company name with stock
+      for (i in companies) {
+        for (j in entitiesArr) {
+          if (
+            companies[i]["Company Name"].includes(entitiesArr[j].text) ||
+            companies[i]["Symbol"].includes(entitiesArr[j].text)
+          ) {
+            let obj = {};
+            obj["Company Name"] = companies[i]["Company Name"];
+            obj["Symbol"] = companies[i]["Symbol"];
+            obj["text"] = entities[j].text;
+            obj["sentiment"] = entities[j].sentiment;
+            companyArr.push(obj);
+          }
+        }
+      }
+
+      //Define result object
       let result = {
-        entities,
-        keywords,
+        entities: entitiesArr,
+        companyArr,
+        title,
+        news,
+        imageURL,
+        date,
+        time,
+        inshortslink,
       };
-      res.status(200).json(result, null, 2);
+
+      res.status(200).json(result);
     })
     .catch((err) => {
       res.status(500).json({
         message: "Something went wrong",
         error: err,
         errmsg: err.toString(),
+      });
+    });
+});
+
+//Analyze all news
+router.post("/all", async (req, res) => {
+  let entitiesArr = [];
+  let companyArr = [];
+
+  const analyzeParams = {
+    url: "https://inshorts.com/en/read/business",
+    features: {
+      entities: {
+        limit: 200,
+        sentiment: true,
+      },
+    },
+  };
+
+  //Analyze news
+  naturalLanguageUnderstanding
+    .analyze(analyzeParams)
+    .then((analysisResults) => {
+      const entities = analysisResults.result.entities;
+      for (i in entities) {
+        if (entities[i].type == "Company" && entities[i].sentiment.score != 0) {
+          entitiesArr.push(entities[i]);
+        }
+      }
+
+      for (i in companies) {
+        for (j in entitiesArr) {
+          if (
+            companies[i]["Company Name"].includes(entitiesArr[j].text) ||
+            companies[i]["Symbol"].includes(entitiesArr[j].text)
+          ) {
+            let obj = {};
+            obj.companyName = companies[i]["Company Name"];
+            obj.symbol = companies[i]["Symbol"];
+            obj.sentiment = entitiesArr[j].sentiment;
+            companyArr.push(obj);
+          }
+        }
+      }
+
+      res.status(200).json({
+        companies: companyArr,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: err.toString(),
       });
     });
 });
